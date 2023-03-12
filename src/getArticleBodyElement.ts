@@ -15,9 +15,7 @@ const UNLIKELY_ROLES = [
   'alertdialog',
   'dialog',
 ]
-const DEFAULT_TAGS_TO_SCORE = 'section,h2,h3,h4,h5,h6,p,td,pre'
-  .toUpperCase()
-  .split(',')
+const DEFAULT_TAGS_TO_SCORE = 'h2,h3,h4,h5,h6,p,td,pre'.toUpperCase().split(',')
 // The default number of chars an article must have in order to return a result
 const DEFAULT_CHAR_THRESHOLD = 500
 const DIV_TO_P_ELEMS = new Set([
