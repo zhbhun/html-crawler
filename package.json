@@ -18,6 +18,7 @@
     "build": "rimraf lib && tsc"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.26.0",
     "@zhbhun/eslint-config-base": "^1.0.0",
     "@zhbhun/prettier-config": "^1.0.0",
     "prettier": "^2.8.4",
