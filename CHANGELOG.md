@@ -1,5 +1,11 @@
 # html-crawler
 
+## 0.0.3
+
+### Patch Changes
+
+- disable section element score
+
 ## 0.0.2
 
 ### Patch Changes
