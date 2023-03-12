@@ -1,5 +1,11 @@
 # html-crawler
 
+## 0.0.4
+
+### Patch Changes
+
+- fix build missing
+
 ## 0.0.3
 
 ### Patch Changes
