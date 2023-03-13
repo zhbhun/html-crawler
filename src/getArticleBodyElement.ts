@@ -442,13 +442,13 @@ function getArticleBodyElement(doc: Document): HTMLElement {
 
       // Check to see if this node is a byline, and remove it if it is.
       if (checkByline(node, matchString)) {
-        node = getNextNode(node)
+        node = getNextNode(node, true)
         continue
       }
 
       if (shouldRemoveTitleHeader && headerDuplicatesTitle(node)) {
         shouldRemoveTitleHeader = false
-        node = getNextNode(node)
+        node = getNextNode(node, true)
         continue
       }
 
@@ -462,12 +462,12 @@ function getArticleBodyElement(doc: Document): HTMLElement {
           node.tagName !== 'BODY' &&
           node.tagName !== 'A'
         ) {
-          node = getNextNode(node)
+          node = getNextNode(node, true)
           continue
         }
 
         if (UNLIKELY_ROLES.includes(node.getAttribute('role'))) {
-          node = getNextNode(node)
+          node = getNextNode(node, true)
           continue
         }
       }
@@ -485,7 +485,7 @@ function getArticleBodyElement(doc: Document): HTMLElement {
           node.tagName === 'H6') &&
         isElementWithoutContent(node)
       ) {
-        node = getNextNode(node)
+        node = getNextNode(node, true)
         continue
       }
 
@@ -501,13 +501,10 @@ function getArticleBodyElement(doc: Document): HTMLElement {
         // element. DIVs with only a P element inside and no text content can be
         // safely converted into plain P elements to avoid confusing the scoring
         // algorithm with DIVs with are, in practice, paragraphs.
-        if (
-          hasSingleTagInsideElement(node, 'P') &&
-          getLinkDensity(node) < 0.25
-        ) {
-          // TODO: ignore single child container div
-          node = node.children[0] as HTMLElement
-          elementsToScore.push(node)
+        if (hasSingleTagInsideElement(node, 'P')) {
+          if (getLinkDensity(node) < 0.25) {
+            elementsToScore.push(node)
+          }
           node = getNextNode(node, true)
           continue
         } else if (!hasChildBlockElement(node)) {
@@ -561,7 +558,7 @@ function getArticleBodyElement(doc: Document): HTMLElement {
         )
           return
 
-        if (scores.has(ancestor)) {
+        if (!scores.has(ancestor)) {
           initializeNode(ancestor)
           candidates.push(ancestor)
         }
@@ -673,7 +670,7 @@ function getArticleBodyElement(doc: Document): HTMLElement {
       parentOfTopCandidate = topCandidate.parentElement
       let lastScore = scores.get(topCandidate)
       // The scores shouldn't get too low.
-      const scoreThreshold = lastScore / 3
+      const scoreThreshold = lastScore * (2 / 3)
       while (parentOfTopCandidate.tagName !== 'BODY') {
         if (!scores.has(parentOfTopCandidate)) {
           parentOfTopCandidate = parentOfTopCandidate.parentElement
