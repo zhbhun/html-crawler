@@ -1,5 +1,11 @@
 # html-crawler
 
+## 0.0.5
+
+### Patch Changes
+
+- adjust score
+
 ## 0.0.4
 
 ### Patch Changes

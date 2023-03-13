@@ -1,6 +1,6 @@
 {
   "name": "html-crawler",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A HTML crawler utils",
   "repository": {
     "type": "git",
